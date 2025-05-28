@@ -1,6 +1,6 @@
 const data = require("./../data/products.json");
 const { sendJson, sendError404 } = require("../utils/response");
-const { getIdFromUrl } = require("../utils/response");
+const { getIdFromUrl } = require("../utils/getIdFromUrl");
 
 const productsRouter = (req, res) => {
   const { method, url } = req;
