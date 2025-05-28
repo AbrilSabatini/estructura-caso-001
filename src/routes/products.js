@@ -1,9 +1,9 @@
 const data = require("./../data/products.json");
 const { sendJson, sendError404 } = require("../utils/response");
+const { getIdFromUrl } = require("../utils/response");
 
 const productsRouter = (req, res) => {
   const { method, url } = req;
-  res.setHeader("Content-Type", "application/json");
 
   // GET
   if (method === "GET") {
@@ -13,8 +13,8 @@ const productsRouter = (req, res) => {
     }
 
     // Get by id
-    const match = url.match(/^\/(\d+)$/);
-    if (match) {
+    const id = getIdFromUrl(url);
+    if (id !== null) {
       const id = parseInt(match[1]); // Get id
       const product = data.find((p) => p.id === id);
 
@@ -28,6 +28,9 @@ const productsRouter = (req, res) => {
     // Page not found
     return sendError404(res);
   }
+
+  // Page not found
+  return sendError404(res);
 };
 
 module.exports = { productsRouter };
