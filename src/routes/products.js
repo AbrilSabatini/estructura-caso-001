@@ -1,5 +1,5 @@
 const data = require("./../data/products.json");
-const { sendJson } = require("../utils/response");
+const { sendJson, sendError404 } = require("../utils/response");
 
 const productsRouter = (req, res) => {
   const { method, url } = req;
@@ -7,25 +7,27 @@ const productsRouter = (req, res) => {
 
   // GET
   if (method === "GET") {
-    if (url === "/product") {
-      // GET ALL
+    // Get all
+    if (url === "/") {
       return sendJson(res, 200, data);
     }
 
-    // GET BY ID
-    if (url.startsWith("/product/")) {
-      const id = parseInt(url.split("/")[2]); // Get id
+    // Get by id
+    const match = url.match(/^\/(\d+)$/);
+    if (match) {
+      const id = parseInt(match[1]); // Get id
       const product = data.find((p) => p.id === id);
 
       if (!product) {
-        return sendJson(res, 404, { error: `Product with id ${id} not found` });
+        return sendError404(res, `Product with id ${id} not found`);
       }
 
       return sendJson(res, 200, product);
     }
-  }
 
-  return sendJson(res, 404, { error: "Page Not Found" });
+    // Page not found
+    return sendError404(res);
+  }
 };
 
 module.exports = { productsRouter };
