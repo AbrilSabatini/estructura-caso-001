@@ -26,25 +26,34 @@ const productsRouter = async (req, res) => {
   }
 
   if (method === "POST") {
+    // Create
     if (url === "/") {
       return productController.createProduct(req, res);
     }
+
+    // Page not found
     return sendError404(res);
   }
 
   if (method === "PUT" || method === "PATCH") {
+    // Update
     const id = getIdFromUrl(url);
     if (id !== null) {
       return productController.updateProduct(req, res, id);
     }
+
+    // Page not found
     return sendError404(res);
   }
 
   if (method === "DELETE") {
+    // Delete
     const id = getIdFromUrl(url);
     if (id !== null) {
       return productController.deleteProduct(res, id);
     }
+
+    // Page not found
     return sendError404(res);
   }
 

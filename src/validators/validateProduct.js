@@ -1,3 +1,11 @@
+/**
+ * The function checks if the `name` and `description` properties
+ * are defined and of type string, returning an array of error messages if validation fails.
+ * @param body - The function takes an object `body` as a parameter. This object is
+ * expected to have `name` and `description` properties.
+ * @returns The function returns an array of error messages based on the validation
+ * rules for the `name` and `description` properties in the `body` object.
+ */
 const validateProduct = (body) => {
   const errors = [];
 
