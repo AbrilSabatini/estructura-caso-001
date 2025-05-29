@@ -31,7 +31,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:{{port}}/product/8",
+					"raw": "http://localhost:{{port}}/product/4",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -39,7 +39,7 @@
 					"port": "{{port}}",
 					"path": [
 						"product",
-						"8"
+						"4"
 					]
 				}
 			},
@@ -52,7 +52,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"New product\",\r\n    \"desciption\": \"New product description\"\r\n}",
+					"raw": "{\r\n    \"name\": \"New product\",\r\n    \"description\": \"New product description\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -81,36 +81,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Name updated\",\r\n    \"desciption\": \"Description updated\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:{{port}}/product/5",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "{{port}}",
-					"path": [
-						"product",
-						"5"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update product (PUT)",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Name updated\",\r\n    \"desciption\": \"description updated\"\r\n}",
+					"raw": "{\r\n    \"name\": \"New product\",\r\n    \"description\": \"New product description\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -133,12 +104,21 @@
 			"response": []
 		},
 		{
-			"name": "Deleted product",
+			"name": "Update product (PUT)",
 			"request": {
-				"method": "DELETE",
+				"method": "PUT",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"New product\",\r\n    \"description\": 13\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:{{port}}/product/5",
+					"raw": "http://localhost:{{port}}/product/3",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -146,7 +126,27 @@
 					"port": "{{port}}",
 					"path": [
 						"product",
-						"5"
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deleted product",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{port}}/product/9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"product",
+						"9"
 					]
 				}
 			},
