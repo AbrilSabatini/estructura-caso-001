@@ -6,19 +6,19 @@ Este proyecto es una API REST básica construida con Node.js, sin frameworks, qu
 
 caso-001/  
 └── src/  
-    ├── data/  
-    │   └── products.json  
-    ├── utils/  
-    │   ├── response.js  
-    │   ├── getIdFromUrl.js  
-    │   └── getBody.js  
-    ├── validators/  
-    │   └── validateProduct.js  
-    ├── controllers/  
-    │   └── products.controller.js  
-    ├── routes/  
-    │   └── productsRouter.js  
-    └── index.js  
+ㅤㅤ├── data/  
+ㅤㅤ│   └── products.json  
+ㅤㅤ├── utils/  
+ㅤㅤ│   ├── response.js  
+ㅤㅤ│   ├── getIdFromUrl.js  
+ㅤㅤ│   └── getBody.js  
+ㅤㅤ├── validators/  
+ㅤㅤ│   └── validateProduct.js  
+ㅤㅤ├── controllers/  
+ㅤㅤ│   └── products.controller.js  
+ㅤㅤ├── routes/  
+ㅤㅤ│   └── productsRouter.js  
+ㅤㅤ└── index.js  
                
 
 
