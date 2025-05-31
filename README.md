@@ -5,15 +5,22 @@ Este proyecto es una API REST básica construida con Node.js, sin frameworks, qu
 ## Estructura del proyecto
 
 caso-001/  
-├── src/  
-│ ├── data/  
-│ │ └── products.json  
-│ ├── routes/  
-│ │ └── products.js  
-│ └── index.js  
-├── .env  
-├── .gitignore  
-└── package.json
+└── src/  
+ㅤㅤ├── data/  
+ㅤㅤ│   └── products.json  
+ㅤㅤ├── utils/  
+ㅤㅤ│   ├── response.js  
+ㅤㅤ│   ├── getIdFromUrl.js  
+ㅤㅤ│   └── getBody.js  
+ㅤㅤ├── validators/  
+ㅤㅤ│   └── validateProduct.js  
+ㅤㅤ├── controllers/  
+ㅤㅤ│   └── products.controller.js  
+ㅤㅤ├── routes/  
+ㅤㅤ│   └── productsRouter.js  
+ㅤㅤ└── index.js  
+               
+
 
 
 
