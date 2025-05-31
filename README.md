@@ -1,6 +1,6 @@
 # Caso 001 - API REST con Node.js
 
-Este proyecto es una API REST básica construida con Node.js, sin frameworks, que sirve información de productos desde un archivo JSON local.
+Este proyecto es una API REST básica construida con Node.js, sin frameworks, que sirve información de productos desde una base de datos MySQL.
 
 ## Estructura del proyecto
 
@@ -8,6 +8,8 @@ caso-001/
 └── src/  
 ㅤㅤ├── data/  
 ㅤㅤ│   └── products.json  
+ㅤㅤ├── database/  
+ㅤㅤ│   └── connection.js  
 ㅤㅤ├── utils/  
 ㅤㅤ│   ├── response.js  
 ㅤㅤ│   ├── getIdFromUrl.js  
