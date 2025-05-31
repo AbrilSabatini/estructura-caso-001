@@ -13,7 +13,6 @@ const getBody = (req, id) => {
     req.on("end", () => {
       try {
         const data = JSON.parse(body);
-        data.id = id ?? 9;
         resolve(data);
       } catch (error) {
         reject(new Error("Invalid JSON"));

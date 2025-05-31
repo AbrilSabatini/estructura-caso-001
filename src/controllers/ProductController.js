@@ -6,12 +6,14 @@ const { validateProduct } = require("../validators/validateProduct");
 const productService = new ProductService();
 
 class ProductController {
-  getAllProducts(res) {
-    return sendJson(res, 200, productService.getAllProducts());
+  async getAllProducts(res) {
+    const products = await productService.getAllProducts();
+    return sendJson(res, 200, products);
   }
 
-  findProductById(res, id) {
-    const product = productService.findProductById(id);
+  async findProductById(res, id) {
+    const product = await productService.findProductById(id);
+    console.log(product);
     if (!product) return sendError404(res, `Product with id ${id} not found`);
 
     return sendJson(res, 200, product);
@@ -27,14 +29,17 @@ class ProductController {
         return sendJson(res, 400, { errors });
       }
 
-      return sendJson(res, 201, body);
+      const newProduct = await productService.createProduct(body);
+
+      return sendJson(res, 201, newProduct);
     } catch (error) {
+      console.log(error);
       return sendJson(res, 400, { error: "Invalid JSON in request body" });
     }
   }
 
   async updateProduct(req, res, id) {
-    const product = productService.findProductById(id);
+    const product = await productService.findProductById(id);
     if (!product) return sendError404(res, `Product with id ${id} not found`);
 
     try {
@@ -46,15 +51,20 @@ class ProductController {
         return sendJson(res, 400, { errors });
       }
 
-      return sendJson(res, 200, body);
+      const updatedProduct = await productService.updateProduct(id, body);
+
+      return sendJson(res, 200, updatedProduct);
     } catch (error) {
       return sendJson(res, 400, { error: "Invalid JSON in request body" });
     }
   }
 
-  deleteProduct(res, id) {
-    const product = productService.findProductById(id);
+  async deleteProduct(res, id) {
+    const product = await productService.findProductById(id);
+
     if (!product) return sendError404(res, `Product with id ${id} not found`);
+
+    await productService.deleteProduct(id);
 
     return sendJson(res, 200, { response: `Product with id ${id} deleted` });
   }
