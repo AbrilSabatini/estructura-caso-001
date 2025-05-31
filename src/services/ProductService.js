@@ -1,4 +1,4 @@
-const { pool } = require("../datababe/connection");
+const { pool } = require("../database/connection");
 
 class ProductService {
   constructor() {}
