@@ -2,7 +2,7 @@
  * The `getBody` function parses the request body as JSON and assigns a default value to the `id`
  * property if it is not provided.
  */
-const getBody = (req, id) => {
+const getBody = (req) => {
   return new Promise((resolve, reject) => {
     let body = "";
 

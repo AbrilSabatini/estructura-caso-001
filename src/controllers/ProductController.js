@@ -43,15 +43,18 @@ class ProductController {
     if (!product) return sendError404(res, `Product with id ${id} not found`);
 
     try {
-      const body = await getBody(req, id);
+      const body = await getBody(req);
+      const isPartial = req.method === "PATCH";
 
-      const errors = validateProduct(body);
+      const errors = validateProduct(body, isPartial);
 
       if (errors.length > 0) {
         return sendJson(res, 400, { errors });
       }
 
-      const updatedProduct = await productService.updateProduct(id, body);
+      let updatedProduct = isPartial
+        ? await productService.updatePartialProduct(id, body)
+        : await productService.updateProduct(id, body);
 
       return sendJson(res, 200, updatedProduct);
     } catch (error) {

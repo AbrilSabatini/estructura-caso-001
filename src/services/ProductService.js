@@ -28,6 +28,33 @@ class ProductService {
     };
   }
 
+  async updatePartialProduct(id, body) {
+    const fields = [];
+    const values = [];
+
+    if (body.name !== undefined) {
+      fields.push("name = ?");
+      values.push(body.name);
+    }
+
+    if (body.description !== undefined) {
+      fields.push("description = ?");
+      values.push(body.description);
+    }
+
+    if (fields.length === 0) {
+      return await this.findProductById(id);
+    }
+
+    const query = `UPDATE product SET ${fields.join(", ")} WHERE id = ?`;
+    values.push(id);
+
+    await pool.query(query, values);
+
+    const updatedProduct = await this.findProductById(id);
+    return updatedProduct;
+  }
+
   async updateProduct(id, body) {
     const { name, description } = body;
     await pool.query(
