@@ -1,31 +1,50 @@
 const { pool } = require("../database/connection");
+const DatabaseError = require("../errors/DatabaseError");
 
 class ProductService {
   constructor() {}
 
   async getAllProducts() {
-    const [results] = await pool.query("SELECT * FROM product");
-    return results;
+    try {
+      const [results] = await pool.query("SELECT * FROM product");
+      return results;
+    } catch (error) {
+      throw new DatabaseError(
+        error,
+        "Failed to fetch products from the database."
+      );
+    }
   }
 
   async findProductById(id) {
-    const [result] = await pool.query("SELECT * FROM product WHERE id = ?", [
-      id,
-    ]);
-    return result[0];
+    try {
+      const [result] = await pool.query("SELECT * FROM product WHERE id = ?", [
+        id,
+      ]);
+      return result[0];
+    } catch (error) {
+      throw new DatabaseError(
+        error,
+        "Failed to fetch product with id from the database."
+      );
+    }
   }
 
   async createProduct(body) {
     const { name, description } = body;
-    const [result] = await pool.query(
-      "INSERT INTO product (name, description) VALUES (?, ?)",
-      [name, description]
-    );
-    return {
-      id: result.insertId,
-      name,
-      description,
-    };
+    try {
+      const [result] = await pool.query(
+        "INSERT INTO product (name, description) VALUES (?, ?)",
+        [name, description]
+      );
+      return {
+        id: result.insertId,
+        name,
+        description,
+      };
+    } catch (error) {
+      throw new DatabaseError(error, "Failed to create product.");
+    }
   }
 
   async updatePartialProduct(id, body) {
@@ -46,31 +65,43 @@ class ProductService {
       return await this.findProductById(id);
     }
 
-    const query = `UPDATE product SET ${fields.join(", ")} WHERE id = ?`;
-    values.push(id);
+    try {
+      const query = `UPDATE product SET ${fields.join(", ")} WHERE id = ?`;
+      values.push(id);
 
-    await pool.query(query, values);
+      await pool.query(query, values);
 
-    const updatedProduct = await this.findProductById(id);
-    return updatedProduct;
+      const updatedProduct = await this.findProductById(id);
+      return updatedProduct;
+    } catch (error) {
+      throw new DatabaseError(error, "Failed to update product.");
+    }
   }
 
   async updateProduct(id, body) {
     const { name, description } = body;
-    await pool.query(
-      "UPDATE product SET name = ?, description = ? WHERE id = ?",
-      [name, description, id]
-    );
-    return {
-      id,
-      name,
-      description,
-    };
+    try {
+      await pool.query(
+        "UPDATE product SET name = ?, description = ? WHERE id = ?",
+        [name, description, id]
+      );
+      return {
+        id,
+        name,
+        description,
+      };
+    } catch (error) {
+      throw DatabaseError(error, "Failed to update product.");
+    }
   }
 
   async deleteProduct(id) {
-    await pool.query("DELETE FROM product WHERE id = ?", [id]);
-    return [];
+    try {
+      await pool.query("DELETE FROM product WHERE id = ?", [id]);
+      return [];
+    } catch (error) {
+      throw new DatabaseError(error, "Failed to delete product.");
+    }
   }
 }
 

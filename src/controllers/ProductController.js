@@ -7,16 +7,25 @@ const productService = new ProductService();
 
 class ProductController {
   async getAllProducts(res) {
-    const products = await productService.getAllProducts();
-    return sendJson(res, 200, products);
+    try {
+      const products = await productService.getAllProducts();
+      return sendJson(res, 200, products);
+    } catch (error) {
+      const status = error.statusCode || 500;
+      return sendJson(res, status, { error: error.message });
+    }
   }
 
   async findProductById(res, id) {
-    const product = await productService.findProductById(id);
-    console.log(product);
-    if (!product) return sendError404(res, `Product with id ${id} not found`);
+    try {
+      const product = await productService.findProductById(id);
+      if (!product) return sendError404(res, `Product with id ${id} not found`);
 
-    return sendJson(res, 200, product);
+      return sendJson(res, 200, product);
+    } catch (error) {
+      const status = error.statusCode || 500;
+      return sendJson(res, status, { error: error.message });
+    }
   }
 
   async createProduct(req, res) {
@@ -34,7 +43,8 @@ class ProductController {
       return sendJson(res, 201, newProduct);
     } catch (error) {
       console.log(error);
-      return sendJson(res, 400, { error: "Invalid JSON in request body" });
+      const status = error.statusCode || 500;
+      return sendJson(res, status, { error: error.message });
     }
   }
 
@@ -58,18 +68,24 @@ class ProductController {
 
       return sendJson(res, 200, updatedProduct);
     } catch (error) {
-      return sendJson(res, 400, { error: "Invalid JSON in request body" });
+      const status = error.statusCode || 500;
+      return sendJson(res, status, { error: error.message });
     }
   }
 
   async deleteProduct(res, id) {
-    const product = await productService.findProductById(id);
+    try {
+      const product = await productService.findProductById(id);
 
-    if (!product) return sendError404(res, `Product with id ${id} not found`);
+      if (!product) return sendError404(res, `Product with id ${id} not found`);
 
-    await productService.deleteProduct(id);
+      await productService.deleteProduct(id);
 
-    return sendJson(res, 200, { response: `Product with id ${id} deleted` });
+      return sendJson(res, 200, { response: `Product with id ${id} deleted` });
+    } catch (error) {
+      const status = error.statusCode || 500;
+      return sendJson(res, status, { error: error.message });
+    }
   }
 }
 
