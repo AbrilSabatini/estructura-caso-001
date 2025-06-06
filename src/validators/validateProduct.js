@@ -15,6 +15,10 @@ const validateProduct = (body, isPartial = false) => {
     } else if (typeof body.name !== "string") {
       errors.push("'name' must be a string");
     }
+
+    if (body.name.length > 45) {
+      errors.push("'name' must be at most 45 characters long");
+    }
   }
 
   if (!isPartial || "description" in body) {
@@ -22,6 +26,10 @@ const validateProduct = (body, isPartial = false) => {
       errors.push("'description' is required");
     } else if (typeof body.description !== "string") {
       errors.push("'description' must be a string");
+    }
+
+    if (body.description.length > 255) {
+      errors.push("'description' must be at most 255 characters long");
     }
   }
 
