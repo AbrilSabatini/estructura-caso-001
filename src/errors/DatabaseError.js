@@ -11,9 +11,15 @@ class DatabaseError extends Error {
         finalMessage = "Table not found in the database.";
         break;
       case "ER_DUP_ENTRY":
-        finalMessage =
-          "Duplicate entry error.A record already exists with that value.";
+        finalMessage = "Duplicate entry error. A record already exists with that value.";
         statusCode = 409;
+        break;
+      case "ECONNREFUSED":
+      case "PROTOCOL_CONNECTION_LOST":
+      case "ER_ACCESS_DENIED_ERROR":
+      case "ENOTFOUND":
+        finalMessage = message;
+        statusCode = 503;
         break;
       default:
         finalMessage = message;
