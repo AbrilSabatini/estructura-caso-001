@@ -45,7 +45,6 @@ class ProductController {
 
       return sendJson(res, 201, newProduct);
     } catch (error) {
-      console.log(error);
       const status = error.statusCode || 500;
       return sendJson(res, status, { error: error.message });
     }
@@ -73,7 +72,6 @@ class ProductController {
 
       return sendJson(res, 200, updatedProduct);
     } catch (error) {
-      console.log(error);
       const status = error.statusCode || 500;
       return sendJson(res, status, { error: error.message });
     }

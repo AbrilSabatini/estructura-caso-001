@@ -18,7 +18,7 @@ class DatabaseError extends Error {
       case "PROTOCOL_CONNECTION_LOST":
       case "ER_ACCESS_DENIED_ERROR":
       case "ENOTFOUND":
-        finalMessage = message;
+        finalMessage = "Database operation failed.";
         statusCode = 503;
         break;
       default:

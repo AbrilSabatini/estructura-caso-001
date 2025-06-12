@@ -43,7 +43,6 @@ class ProductService {
         description,
       };
     } catch (error) {
-      console.error(error);
       throw new DatabaseError(error, "Failed to create product.");
     }
   }
@@ -92,7 +91,7 @@ class ProductService {
         description,
       };
     } catch (error) {
-      throw DatabaseError(error, "Failed to update product.");
+      throw new DatabaseError(error, "Failed to update product.");
     }
   }
 
