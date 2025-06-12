@@ -2,7 +2,7 @@ const { pool } = require("../database/connection");
 const DatabaseError = require("../errors/DatabaseError");
 
 class ProductService {
-  constructor() {}
+  constructor() { }
 
   async getAllProducts() {
     try {
@@ -43,6 +43,7 @@ class ProductService {
         description,
       };
     } catch (error) {
+      console.error(error);
       throw new DatabaseError(error, "Failed to create product.");
     }
   }

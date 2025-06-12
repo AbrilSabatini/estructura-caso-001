@@ -2,6 +2,7 @@ const ProductService = require("../services/ProductService");
 const { sendJson, sendError404 } = require("../utils/response");
 const { getBody } = require("../utils/getBody");
 const { validateProduct } = require("../validators/validateProduct");
+const { authMiddleware } = require("../utils/authMiddleware");
 
 const productService = new ProductService();
 
@@ -29,6 +30,8 @@ class ProductController {
   }
 
   async createProduct(req, res) {
+    if (!authMiddleware(req, res)) return;
+
     try {
       const body = await getBody(req);
 
@@ -49,6 +52,8 @@ class ProductController {
   }
 
   async updateProduct(req, res, id) {
+    if (!authMiddleware(req, res)) return;
+
     const product = await productService.findProductById(id);
     if (!product) return sendError404(res, `Product with id ${id} not found`);
 
@@ -68,12 +73,15 @@ class ProductController {
 
       return sendJson(res, 200, updatedProduct);
     } catch (error) {
+      console.log(error);
       const status = error.statusCode || 500;
       return sendJson(res, status, { error: error.message });
     }
   }
 
-  async deleteProduct(res, id) {
+  async deleteProduct(req, res, id) {
+    if (!authMiddleware(req, res)) return;
+
     try {
       const product = await productService.findProductById(id);
 
@@ -81,7 +89,8 @@ class ProductController {
 
       await productService.deleteProduct(id);
 
-      return sendJson(res, 200, { response: `Product with id ${id} deleted` });
+      // return sendJson(res, 200, { response: `Product with id ${id} deleted` });
+      return res.writeHead(204).end();
     } catch (error) {
       const status = error.statusCode || 500;
       return sendJson(res, status, { error: error.message });

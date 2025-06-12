@@ -1,5 +1,5 @@
 const { getIdFromUrl } = require("../utils/getIdFromUrl");
-const { sendError404 } = require("../utils/response");
+const { sendError404, sendJson } = require("../utils/response");
 
 const ProductController = require("../controllers/ProductController");
 
@@ -50,15 +50,22 @@ const productsRouter = async (req, res) => {
     // Delete
     const id = getIdFromUrl(url);
     if (id !== null) {
-      return productController.deleteProduct(res, id);
+      return productController.deleteProduct(req, res, id);
     }
 
     // Page not found
     return sendError404(res);
   }
 
+  if (method === "HEAD")
+    return sendJson(res, 405, {
+      message: "Method not allowed"
+    });
+
   // Page not found
-  return sendError404(res);
+  return sendJson(res, 501, {
+    message: "Method not implemented",
+  });
 };
 
 module.exports = { productsRouter };
