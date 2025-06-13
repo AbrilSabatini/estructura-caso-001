@@ -1,48 +1,25 @@
 # Caso 001 - API REST con Node.js
 
 Este proyecto es una API REST básica construida con Node.js, sin frameworks, que sirve información de productos desde una base de datos MySQL.
-
-## Estructura del proyecto
-
-caso-001/  
-└── src/  
-ㅤㅤ├── data/  
-ㅤㅤ│   └── products.json  
-ㅤㅤ├── database/  
-ㅤㅤ│   └── connection.js  
-ㅤㅤ├── utils/  
-ㅤㅤ│   ├── response.js  
-ㅤㅤ│   ├── getIdFromUrl.js  
-ㅤㅤ│   └── getBody.js  
-ㅤㅤ├── validators/  
-ㅤㅤ│   └── validateProduct.js  
-ㅤㅤ├── controllers/  
-ㅤㅤ│   └── products.controller.js  
-ㅤㅤ├── routes/  
-ㅤㅤ│   └── productsRouter.js  
-ㅤㅤ└── index.js  
                
-
-
-
 
 ## Inicio
 
-1. Clonar el repositorio:
+1. Instalar las dependencias:
 
-    ```
-    git clone https://github.com/AbrilSabatini/estructura-caso-001.git
-    cd Caso-001
-    ```
-
-2. Instalar las dependencias:
     ```
     npm install
     ```
 
-3. Crear un archivo `.env` a partir de `.env.template`
+2. Crear un archivo `.env` a partir de `.env.template` y completar los datos de conexión a tu base de datos MySQL.
 
-4. Ejecutar:
+3. Inicializar la base de datos:
+
+    Podés usar el archivo `init.sql` ubicado en la raíz del proyecto para crear la base de datos y poblarla con datos de ejemplo.  
+
+
+4. Ejecutar la aplicación:
+
     ```
     npm run dev
     ```
